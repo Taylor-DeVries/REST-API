@@ -17,6 +17,12 @@ app.get("/api/courses", (req, res) => {
   res.send(courses);
 });
 
+app.get("/api/courses/:id", (req, res) => {
+  const course = courses.find((c) => c.id === parseInt(req.params.id));
+  if (!course) return res.status(404).send("The course was not found");
+  res.send(course);
+});
+
 app.post("/api/courses", (req, res) => {
   if (!req.body.name || req.body.name.length < 3)
     return res.status(400).send("Name must be at least 3 characters");
